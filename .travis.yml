@@ -1,0 +1,4 @@
+language: java
+group: stable
+sudo: false
+script: mvn clean verify

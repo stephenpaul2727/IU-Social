@@ -1,103 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    
+    <link href="https://fonts.googleapis.com/css?family=Baumans" rel="stylesheet"></link>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></link>
 	
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></link>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
 	<script src="regis_validate_test.js"></script>
-
-	<link href="https://fonts.googleapis.com/css?family=Baumans" rel="stylesheet">
+	
+	<link href="css/indexstyles.css" rel="stylesheet"></link>
+	
+	
 <title>IU Social</title>
-<style>
-@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 
-body {
-background-color: #efefef;
-}
-.card-columns {
-  @include media-breakpoint-only(lg) {
-    column-count: 4;
-  }
-  @include media-breakpoint-only(xl) {
-    column-count: 5;
-  }
-}
-div.footer {
-width: 100%;
-height: 40px;
-background-color:#7c091f; 
-}
-div.navbar {
-background-color: #7c091f;
-width: 100%;
-height: 86px;
-}
-div.logsign {
-float:right;
-}
-.img-responsive:hover {
-opacity: 0.7;
-border-bottom: 3px solid #efefef;
-}
-.btn-round-lg{
-border-radius: 22.5px;
-}
-.form-group {
-margin-top: 25px;
-}
-div.siteimg {
-width: 100%;
-height: 70%;
-margin-top: -21px;
-}
-.btn-round{
-border-radius: 17px;
-}
-.jumbotron {
-width: 50px;
-height: 50px;
-background-color:#000000;
-}
-div.space {
-width: 100%;
-height: 25px;
-}
-
-
-div.bodycontent {
-width: 100%;
-height: auto;
-}
-</style>
 </head>
 <body>
 	<div class="navbar">
 		<div class="brand">
-			<a class="col-md-2" href="#"><img class="img-responsive" style="margin-top: 0px;"src="images/iusociallogo.png"/></a>
+			<a class="col-md-2" href="#"><img class="img-responsive" style="margin-top: 0px;" src="images/iusociallogo.png" ></img></a>
 			<form class="form-inline col-md-6" style="float:right;">
 				<div class ="form-group">
-					<input type="email" class="form-control" placeholder="Enter your Email " id="email">
+					<input type="email" class="form-control" placeholder="Enter your Email " id="email"></input>
 				</div>&nbsp;&nbsp;&nbsp;
 				<div class="form-group">
-    				<input type="password" class="form-control" placeholder="Enter your Password" id="pwd">
+    				<input type="password" class="form-control" placeholder="Enter your Password" id="pwd"></input>
   				</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  				  <button type="submit" style="margin-top:25px;"class="btn btn-success btn-round">Login</button>
+  				  <button type="submit" style="margin-top:25px;" class="btn btn-success btn-round" >Login</button>
   				  &nbsp;&nbsp;&nbsp;
-  				  <button type="button" style="margin-top:25px;"class="btn btn-default btn-round" data-toggle="modal" data-target="#myModal">Sign Up</button>
+  				  <button type="button" style="margin-top:25px;" class="btn btn-default btn-round" data-toggle="modal" data-target="#myModal" >Sign Up</button>
   				
 			</form>
 		</div>
@@ -157,21 +101,24 @@ height: auto;
           <h3 class="modal-title" >Sign Up</h3>
         </div>
         <div class="modal-body">
+        <form id="user-reg-form" role="form" th:action="@{/save}" method="post" th:object ="${User}" class="form-horizontal">
+        	<div class ="form-group">
         	<div class="space"></div>
-          <input type ="email" class="form-control" placeholder="Enter a valid Email" id="signupemail" />
+          <input type ="email" class="form-control" placeholder="Enter a valid Email" id="signupemail" name ="signupemail" th:field="${User.email}"></input>
           <div class="space"></div> 
-          <input type="text" class="form-control" placeholder="Enter your First name" id="fname" />
+          <input type="text" class="form-control" placeholder="Enter your First name" id="fname" name="fname" th:field="${User.fname}"></input>
            <div class="space"></div>
-          <input type="text" class="form-control" placeholder="Enter your Last name" id="lname" />
+          <input type="text" class="form-control" placeholder="Enter your Last name" id="lname" name="lname" th:field="${User.lname}"></input>
            <div class="space"></div>
-          <input type="password" class="form-control" placeholder="Enter your Password" id="signuppwd" />
+          <input type="password" class="form-control" placeholder="Enter your Password" id="signuppwd" name="signuppwd" th:field="${User.password}" ></input>
           <div class="space"></div> 
-          <input type="password" class="form-control" placeholder="Re-enter your Password" id="signuprepwd">
+          <input type="password" class="form-control" placeholder="Re-enter your Password" id="signuprepwd"></input>
           <div class="space"></div> 
-          <input type="text" class="form-control" placeholder="Enter your Phone Number" id="phone" />
+          <input type="text" class="form-control" placeholder="Enter your Phone Number" id="phone" name="phone" th:field="${User.phone}" ></input>
           <div class="space"></div> 
-  		  <button type="submit" id="signupbutton" style="margin-left:43%;margin-top:25px;"class="btn btn-warning btn-round">Sign Up</button>
-          
+  		  <button type="submit" id="signupbutton" style="margin-left:43%;margin-top:25px;" class="btn btn-warning btn-round">Sign Up</button>
+        </div>
+        </form>
         </div>
         
       </div>

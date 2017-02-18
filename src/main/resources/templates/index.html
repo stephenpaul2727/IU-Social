@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
     
+    	
+	<title>IU Social</title>
     <link href="https://fonts.googleapis.com/css?family=Baumans" rel="stylesheet"></link>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -24,23 +26,25 @@
 	
 	<link href="css/indexstyles.css" rel="stylesheet"></link>
 	
-	
-<title>IU Social</title>
+
 
 </head>
 <body>
 	<div class="navbar">
 		<div class="brand">
 			<a class="col-md-2" href="#"><img class="img-responsive" style="margin-top: 0px;" src="images/iusociallogo.png" ></img></a>
-			<form class="form-inline col-md-6" style="float:right;">
+			<form class="form-inline col-md-6" role="form" th:action="@{/login}" th:object="${User}" method="post" style="float:right;">
 				<div class ="form-group">
-					<input type="email" class="form-control" placeholder="Enter your Email " id="email"></input>
+					<input type="email" class="form-control" placeholder="Enter your Email " id="email" th:field="${User.email}"></input>
 				</div>&nbsp;&nbsp;&nbsp;
+				
 				<div class="form-group">
-    				<input type="password" class="form-control" placeholder="Enter your Password" id="pwd"></input>
+    				<input type="password" class="form-control" placeholder="Enter your Password" th:field ="${User.password}" id="pwd"></input>
+    				
   				</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   				  <button type="submit" style="margin-top:25px;" class="btn btn-success btn-round" >Login</button>
   				  &nbsp;&nbsp;&nbsp;
+  				  
   				  <button type="button" style="margin-top:25px;" class="btn btn-default btn-round" data-toggle="modal" data-target="#myModal" >Sign Up</button>
   				
 			</form>
@@ -115,8 +119,11 @@
           <input type="password" class="form-control" placeholder="Re-enter your Password" id="signuprepwd"></input>
           <div class="space"></div> 
           <input type="text" class="form-control" placeholder="Enter your Phone Number" id="phone" name="phone" th:field="${User.phone}" ></input>
-          <div class="space"></div> 
-  		  <button type="submit" id="signupbutton" style="margin-left:43%;margin-top:25px;" class="btn btn-warning btn-round">Sign Up</button>
+          <div class="space"></div>
+          <b>Are you a Professor?</b>
+      		<input type="checkbox" class="form-control" id="professor" name="professor" th:field="${User.professor}"></input>
+    	  <div class="space"></div>
+  		  <button type="submit" id="signupbutton" style="margin-left:43%;margin-top:25px;" class="btn btn-primary btn-round">Sign Up</button>
         </div>
         </form>
         </div>

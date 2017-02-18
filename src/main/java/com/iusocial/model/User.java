@@ -27,13 +27,15 @@ public class User implements Serializable{
 	 private String password;
 	@Column(name ="phone")
 	 private String phone;
+	@Column(name ="professor")
+	 private boolean professor;
 	 
 	
 	public User()
 	{
 		
 	}
-	 public User(String fname,String lname,String email,String password, String phone)
+	 public User(String fname,String lname,String email,String password, String phone,boolean professor)
 	 {
 		 super();
 		 this.fname = fname;
@@ -41,9 +43,16 @@ public class User implements Serializable{
 		 this.email = email;
 		 this.phone=phone;
 		 this.password = password;
+		 this.professor = professor;
 		 
 	 }
 
+	public boolean getProfessor() {
+		return professor;
+	}
+	public void setProfessor(boolean professor) {
+		this.professor = professor;
+	}
 	public int getId() {
 		return id;
 	}

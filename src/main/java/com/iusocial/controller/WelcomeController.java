@@ -40,4 +40,9 @@ public class WelcomeController {
 		}
 		
 	}
+	
+	@RequestMapping(value= "/logout", method = RequestMethod.POST)
+	public String logout(){
+		return "index";
+	}
 }

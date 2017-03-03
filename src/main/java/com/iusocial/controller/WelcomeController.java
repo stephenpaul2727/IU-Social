@@ -31,8 +31,13 @@ public class WelcomeController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(User user){
+	public String login(User user,Model model){
 		if(loginService.loginCheck(user.getEmail(), user.getPassword())=="Valid User"){
+			for(User newuser:userInterface.findAll()){
+				if(newuser.getEmail().equals(user.getEmail())){
+					model.addAttribute("User", newuser);
+				}
+			}
 			return "profile";
 		}
 		else{
@@ -41,8 +46,10 @@ public class WelcomeController {
 		
 	}
 	
-	@RequestMapping(value= "/logout", method = RequestMethod.POST)
-	public String logout(){
+	@RequestMapping(value= "/logout")
+	public String logout(Model model){
+		User user = new User();
+		model.addAttribute("User",user);
 		return "index";
 	}
 }

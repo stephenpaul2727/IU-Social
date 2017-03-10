@@ -4,8 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.iusocial.interfaces.PagesInterface;
+import com.iusocial.interfaces.PostInterface;
 import com.iusocial.interfaces.UserInterface;
+import com.iusocial.interfaces.UserinfoInterface;
+import com.iusocial.model.Posts;
 import com.iusocial.model.User;
 import com.iusocial.service.LoginService;
 
@@ -13,10 +19,20 @@ import com.iusocial.service.LoginService;
 public class WelcomeController {
 	
 	@Autowired
-	private UserInterface userInterface;
+	private UserinfoInterface userinfoInterface;
 	
 	@Autowired
+	private PostInterface postInterface;
+	
+	@Autowired
+	private PagesInterface pagesInterface;
+	
+	@Autowired
+	private UserInterface userInterface;
+	@Autowired
 	private LoginService loginService;
+	
+	
 
 	@RequestMapping("/")
     public String index(Model model) {
@@ -36,8 +52,14 @@ public class WelcomeController {
 			for(User newuser:userInterface.findAll()){
 				if(newuser.getEmail().equals(user.getEmail())){
 					model.addAttribute("User", newuser);
+			}}
+			for(Posts newpost:postInterface.findAll()){
+				if(newpost.getUserofpost().equals(user.getEmail())){
+					model.addAttribute("Post",newpost);
+					return "profile";
 				}
 			}
+			model.addAttribute("Post", new Posts());
 			return "profile";
 		}
 		else{
@@ -52,4 +74,16 @@ public class WelcomeController {
 		model.addAttribute("User",user);
 		return "index";
 	}
+	
+	@RequestMapping(value= "/post")
+	public String Post(Model model,User user, Posts post){
+		post.setUserofpost(user.getEmail());
+		postInterface.save(post);
+		model.addAttribute("User",user);
+		return "postsuccess";
+	
+	}
+	
+	
+	
 }

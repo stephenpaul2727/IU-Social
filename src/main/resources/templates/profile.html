@@ -27,13 +27,21 @@
 
 </head>
 <body>
-	
 	<div id="navbar" class="navbar navbar-collapse" style="border-radius:0;text-shadow: none;">
           <ul class="nav navbar-nav">
             <li><a th:href="login"><img src ="images/logo2.png" style="height:20px;"></img></a></li>
 			<li ><a href="profile.html">Forums</a></li>
             <li><a href="groups.html">Groups</a></li>
           </ul>
+          
+          <div class="col-md-2"></div>
+          <ul class="nav navbar-nav navbar-center">
+		  <form action="" class="search-form">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" style="width:450px;margin-top:10px;" class="form-control" name="search" id="search" placeholder="Search"></input>
+          </form>
+		  </ul>
+          
 		  <ul class="nav navbar-nav navbar-right">
       <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
       
@@ -66,23 +74,58 @@
 		      <h3 class="panel-title">Profile Wall</h3>
 		    </div>
 		    <div class="panel-body">
-		      <form>
+		    <form th:action="@{/post}" method="post" role="form">
 			<div class="form-group">
-			  <textarea class="form-control" placeholder="Write on the wall"></textarea>
+			  <textarea th:field="${Post.text}" class="form-control" placeholder="Write on the wall"></textarea>
 			</div>
+			<input type="text" th:field="${User.email}" placeholder="Enter your Email to verify post"></input>
 			<button type="submit" class="btn btn-default">Submit</button>
 			<div class="pull-right">
 			  <div class="btn-group">
-			    <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> Text</button>
+			    <button type="button" class="btn btn-default" ><i class="fa fa-pencil"></i> Text</button>
 			    <button type="button" class="btn btn-default"><i class="fa fa-file-image-o"></i> Image</button>
 			    <button type="button" class="btn btn-default"><i class="fa fa-file-video-o"></i> Video</button>
 			  </div>
 			</div> 
-		      </form>
+		    </form>
 		    </div> 
 		  </div> 
 	
-	      </div> 
+	 	  <br></br><br></br>
+	      
+	      
+	      <div class="panel panel-default" style ="margin-top: -40px;">
+		  <div class="panel-heading">
+		      <h3 class="panel-title" th:text="${Post.getUserofpost()}">user of the post</h3>
+		  </div>
+		  </div>
+		  
+		  <!--Fill in the existing posts using a for loop-->
+		  <div class="panel panel-default" style ="margin-top: -20px;">
+		    <div class="panel-body">
+		      <form>
+			<div class="form-group">
+			  <p th:value="${Post.getText()}">----Post Information---</p>
+			</div>
+			<div class="pull-centre">
+			  <div class="btn-group">
+			    <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> Like</button>
+			    <button type="button" class="btn btn-default"><i class="fa fa-file-image-o"></i> Comment</button>
+			    <button type="button" class="btn btn-default"><i class="fa fa-file-video-o"></i> Share</button>
+			  </div>
+			  <div class="form-group">
+				<form action="create_comment" method="post">
+					<input type="hidden" name="postId" value=""></input>
+					<textarea class="form-control" placeholder="Comment"></textarea><br></br>
+					<button type="submit" class="btn btn-default" style="float: right;">Submit</button>				
+				</form>
+				
+			</div>
+			</div> <!-- pull-right -->
+		      </form>
+		    </div> <!-- panel body -->
+		  </div>
+		  </div>
 		 
 	  <div class="col-md-4" style="">
 	    <div class="panel panel-default friends" style ="margin-top: -40px;">

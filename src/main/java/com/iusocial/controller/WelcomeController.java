@@ -1,10 +1,13 @@
 package com.iusocial.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.iusocial.interfaces.PagesInterface;
@@ -17,6 +20,12 @@ import com.iusocial.service.LoginService;
 
 @Controller
 public class WelcomeController {
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
+	
+	private PasswordEncoder passer = passwordEncoder();
 	
 	@Autowired
 	private UserinfoInterface userinfoInterface;
@@ -42,7 +51,13 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/save", method=RequestMethod.POST )
 	public String save(User user) {
-	    userInterface.save(user);
+		if(loginService.saveCheck(user)=="Valid Cred"){
+			String pass = user.getPassword();
+			user.setPassword(passer.encode(pass));
+	    userInterface.save(user);}
+		else {
+			return "userexists";
+		}
 	    return "usersaved";
 	}
 	

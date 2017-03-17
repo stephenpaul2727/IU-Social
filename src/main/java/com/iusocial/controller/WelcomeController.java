@@ -1,5 +1,7 @@
 package com.iusocial.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.iusocial.interfaces.PagesInterface;
@@ -44,7 +47,7 @@ public class WelcomeController {
 	
 
 	@RequestMapping("/")
-    public String index(Model model) {
+    public String index(Model model,HttpSession session) {
         model.addAttribute("User", new User());
         return "index";
     }
@@ -62,11 +65,12 @@ public class WelcomeController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(User user,Model model){
+	public String login(User user,Model model,HttpSession session){
 		if(loginService.loginCheck(user.getEmail(), user.getPassword())=="Valid User"){
 			for(User newuser:userInterface.findAll()){
 				if(newuser.getEmail().equals(user.getEmail())){
 					model.addAttribute("User", newuser);
+					session.setAttribute("UserLogged", newuser); 
 			}}
 			for(Posts newpost:postInterface.findAll()){
 				if(newpost.getUserofpost().equals(user.getEmail())){
@@ -84,9 +88,11 @@ public class WelcomeController {
 	}
 	
 	@RequestMapping(value= "/logout")
-	public String logout(Model model){
+	public String logout(Model model,HttpSession session){
 		User user = new User();
+		session.removeAttribute("UserLogged");
 		model.addAttribute("User",user);
+		session.invalidate();
 		return "index";
 	}
 	
@@ -99,6 +105,10 @@ public class WelcomeController {
 	
 	}
 	
+	@RequestMapping(value="/sessionerror")
+	public String SessionError(Model model){
+		return "sessionexpired";
+	}
 	
 	
 }

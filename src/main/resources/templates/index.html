@@ -40,6 +40,8 @@
 				
 				<div class="form-group">
     				<input type="password" class="form-control" placeholder="Enter your Password" th:field ="${User.password}" id="pwd"></input>
+    				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+    				
     				
   				</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   				  <button type="submit" style="margin-top:25px;" class="btn btn-success btn-round" >Login</button>

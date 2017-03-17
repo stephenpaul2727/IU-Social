@@ -12,19 +12,30 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	
+    	http.sessionManagement().maximumSessions(1)
+    							.expiredUrl("/sessionerror");
+    		http.sessionManagement().invalidSessionUrl("/sessionerror")
+    								.sessionFixation().migrateSession();
+    		
+    	
         http
             .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .and()
             .logout()
-                .permitAll();
+                .permitAll()
+                .logoutSuccessUrl("/")
+                .logoutUrl("/perform-logout")
+                .deleteCookies("JSESSIONID");
+
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+                .withUser("user").password("password").authorities("ROLE_USER");
     }
 }

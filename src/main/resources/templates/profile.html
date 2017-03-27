@@ -53,17 +53,15 @@
 	
 	<div class="row" style ="width:100%;padding:10px;">
 	    <div> 
-		<div class="col-md-2" style="">
+		<div class="col-md-2" >
 	  	  <img src="images/profile.png" height="200" alt="choose a pic!"></img>
 		<h2 style="font-family: 'Cuprum', sans-serif;" th:text="${User.getFname()}">default</h2>
-		<div>
-		  <ul style= "list-style-type:none;margin-left:0%;">
-		    <li><strong>Degree:</strong> Master's</li>
-		    <li><strong>School:</strong> SOIC</li>
-		    <li><strong>Gender:</strong> Male</li>
-		    <li><strong>Major:</strong> Computer Science</li>
-		  </ul>
-		</div> 
+		<div style="border-style:inset;border-color:#9b1c03"> 
+		  <strong>Degree:</strong> Master's<br></br>
+		  <strong>School:</strong> SOIC<br></br>
+		  <strong>Gender:</strong> Male<br></br>
+		  <strong>Major:</strong> Computer Science<br></br>
+		</div>
 		</div>
 	      </div>
 
@@ -93,19 +91,19 @@
 	
 	 	  <br></br><br></br>
 	      
-	      
 	      <div class="panel panel-default" style ="margin-top: -40px;">
 		  <div class="panel-heading">
-		      <h3 class="panel-title" th:text="${Post.getUserofpost()}">user of the post</h3>
+		      <h3 class="panel-title" th:text="${Postnew.getUserofpost()}">user of the post</h3>
 		  </div>
 		  </div>
 		  
 		  <!--Fill in the existing posts using a for loop-->
+		 
 		  <div class="panel panel-default" style ="margin-top: -20px;">
 		    <div class="panel-body">
 		      <form>
 			<div class="form-group">
-			  <p th:value="${Post.getText()}">----Post Information---</p>
+			  <p th:text="${Postnew.getText()}">----Post Information---</p>
 			</div>
 			<div class="pull-centre">
 			  <div class="btn-group">

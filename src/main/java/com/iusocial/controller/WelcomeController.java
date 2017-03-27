@@ -73,9 +73,11 @@ public class WelcomeController {
 					session.setAttribute("UserLogged", newuser); 
 			}}
 			for(Posts newpost:postInterface.findAll()){
-				if(newpost.getUserofpost().equals(user.getEmail())){
-					model.addAttribute("Post",newpost);
-					return "profile";
+				
+				String postuser = newpost.getUserofpost().replaceAll("\\s+", "");
+				String origuser = user.getEmail().replaceAll("\\s", "");
+				if(postuser.equals(origuser)){
+					model.addAttribute("Postnew", newpost);
 				}
 			}
 			model.addAttribute("Post", new Posts());

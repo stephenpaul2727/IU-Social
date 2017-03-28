@@ -23,15 +23,26 @@ public class Posts implements Serializable{
 	 private boolean link;
 	@Column(name ="likes")
 	 private int likes;
+	@Column(name="name")
+	 private String name;
 
 	public Posts(){
 		}
 
-	public Posts(String userofpost, String text,boolean link, int likes){
+	public Posts(String userofpost, String text,boolean link, int likes, String name){
 		this.userofpost = userofpost;
 		this.text = text;
 		this.link = link;
 		this.likes = likes;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getUserofpost() {

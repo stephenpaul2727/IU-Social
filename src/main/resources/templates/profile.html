@@ -90,10 +90,14 @@
 		  </div> 
 	
 	 	  <br></br><br></br>
-	      
+	 	  <!-- <div style="background-color:blue;" th:each="smokeTest : ${postlist}" >
+	 	  <H1 th:text="${smokeTest.getText()}"></H1>
+	 	  &nbsp; &nbsp;
+	 	  </div> -->
+	      <div th:each="smokeTest : ${postlist}">
 	      <div class="panel panel-default" style ="margin-top: -40px;">
 		  <div class="panel-heading">
-		      <h3 class="panel-title" th:text="${Postnew.getUserofpost()}">user of the post</h3>
+		      <h3 class="panel-title" th:text="${smokeTest.getName()}">user of the post</h3>
 		  </div>
 		  </div>
 		  
@@ -103,7 +107,7 @@
 		    <div class="panel-body">
 		      <form>
 			<div class="form-group">
-			  <p th:text="${Postnew.getText()}">----Post Information---</p>
+			  <p th:text="${smokeTest.getText()}">----Post Information---</p>
 			</div>
 			<div class="pull-centre">
 			  <div class="btn-group">
@@ -122,6 +126,9 @@
 			</div> <!-- pull-right -->
 		      </form>
 		    </div> <!-- panel body -->
+		  </div>
+		  <br></br>
+		  <br></br>
 		  </div>
 		  </div>
 		 

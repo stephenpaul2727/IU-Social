@@ -1,5 +1,8 @@
 package com.iusocial.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,7 @@ public class WelcomeController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(User user,Model model,HttpSession session){
+		List<Posts> newlist = new ArrayList<Posts>();
 		if(loginService.loginCheck(user.getEmail(), user.getPassword())=="Valid User"){
 			for(User newuser:userInterface.findAll()){
 				if(newuser.getEmail().equals(user.getEmail())){
@@ -78,9 +82,11 @@ public class WelcomeController {
 				String origuser = user.getEmail().replaceAll("\\s", "");
 				if(postuser.equals(origuser)){
 					model.addAttribute("Postnew", newpost);
+					newlist.add(newpost);
 				}
 			}
 			model.addAttribute("Post", new Posts());
+			model.addAttribute("postlist",newlist);
 			return "profile";
 		}
 		else{
@@ -101,6 +107,10 @@ public class WelcomeController {
 	@RequestMapping(value= "/post")
 	public String Post(Model model,User user, Posts post){
 		post.setUserofpost(user.getEmail());
+		for(User newuser:userInterface.findAll()){
+			if(newuser.getEmail().equals(user.getEmail())){
+				post.setName(newuser.getFname() + " "+ newuser.getLname());
+		}}
 		postInterface.save(post);
 		model.addAttribute("User",user);
 		return "postsuccess";

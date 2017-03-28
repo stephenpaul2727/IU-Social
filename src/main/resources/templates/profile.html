@@ -7,6 +7,7 @@
     
     <title>IU Social</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"></link>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
 
@@ -55,13 +56,16 @@
 	    <div> 
 		<div class="col-md-2" >
 	  	  <img src="images/profile.png" height="200" alt="choose a pic!"></img>
-		<h2 style="font-family: 'Cuprum', sans-serif;" th:text="${User.getFname()}">default</h2>
+	  	 <button type="button" style="margin-top:25px;background-color:#990000;color: #efefef;" class="btn btn-xs btn-round" data-toggle="modal" data-target="#myModal" >Edit Your Profile Picture. &nbsp;<i class="fa fa-pencil-square" aria-hidden="true"></i></button>
+		<h2 style="font-family: 'Cuprum', sans-serif;" th:text="${User.getFname() + User.getLname()}">default</h2>
 		<div style="border-style:inset;border-color:#9b1c03"> 
 		  <strong>Degree:</strong> Master's<br></br>
 		  <strong>School:</strong> SOIC<br></br>
 		  <strong>Gender:</strong> Male<br></br>
 		  <strong>Major:</strong> Computer Science<br></br>
 		</div>
+		<button type="button" style="margin-top:25px;background-color:#990000;color: #efefef;" class="btn btn-xs btn-round" data-toggle="modal" data-target="#myModal" >Edit Your Information &nbsp;<i class="fa fa-pencil-square" aria-hidden="true"></i></button>
+		
 		</div>
 	      </div>
 
@@ -94,10 +98,10 @@
 	 	  <H1 th:text="${smokeTest.getText()}"></H1>
 	 	  &nbsp; &nbsp;
 	 	  </div> -->
-	      <div th:each="smokeTest : ${postlist}">
+	      <div th:each="eachPost : ${postlist}">
 	      <div class="panel panel-default" style ="margin-top: -40px;">
 		  <div class="panel-heading">
-		      <h3 class="panel-title" th:text="${smokeTest.getName()}">user of the post</h3>
+		      <h3 class="panel-title" th:text="${eachPost.getUserofpost()}">user of the post</h3>
 		  </div>
 		  </div>
 		  
@@ -107,7 +111,7 @@
 		    <div class="panel-body">
 		      <form>
 			<div class="form-group">
-			  <p th:text="${smokeTest.getText()}">----Post Information---</p>
+			  <p th:text="${eachPost.getText()}">----Post Information---</p>
 			</div>
 			<div class="pull-centre">
 			  <div class="btn-group">
@@ -182,6 +186,78 @@
       </div> 
     </footer>
 
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #7c091f;color:#efefef;">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h3 class="modal-title" >Update Profile Information</h3>
+        </div>
+        <div class="modal-body">
+        	<div class="space"></div>
+		
+		<form class="form-horizontal bv-form" role="form" th:action="@{/updateProfile}" method="post" th:object ="${userinfo}" id="reg_form" novalidate="novalidate">
+			<fieldset>
+				<div class="form-group">
+					<label class="col-md-4 control-label">Degree</label>
+					<div class="col-md-6  inputGroupContainer">
+					  <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-king"></i></span>
+						<input name="degree" placeholder="Enter your current degree" class="form-control" th:field="${userinfo.u_degree}" type="text"></input>
+					  </div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label">School</label>
+					<div class="col-md-6  inputGroupContainer">
+					  <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+						<input  name="school" placeholder="Enter your school" class="form-control" th:field="${userinfo.u_school}" type="text"></input>
+					  </div>
+					</div>
+				</div>
+	  
+				<div class="form-group">
+					<label class="col-md-4 control-label" >Gender</label>
+					<div class="col-md-6  inputGroupContainer">
+					  <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						
+					  </div>
+					</div>
+				</div>
+		 
+				<div class="form-group has-feedback">
+					<label for="password"  class="col-md-4 control-label">
+							Major
+						</label>
+						<div class="col-md-6  inputGroupContainer">
+						<div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+					<input class="form-control" id="userPw" type="text" placeholder="Enter your Major" 
+							   name="major" data-minLength="5"
+							    required="required" th:field="${userinfo.u_major}"></input>
+						</div>
+					 </div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-4 control-label"></label>
+					<div class="col-md-4">
+					  &nbsp; &nbsp; &nbsp;<button type="submit" class="btn btn-sm btn-success" >Sign Up</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
 	<script type="text/javascript">

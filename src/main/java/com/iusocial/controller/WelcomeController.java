@@ -22,6 +22,7 @@ import com.iusocial.interfaces.UserInterface;
 import com.iusocial.interfaces.UserinfoInterface;
 import com.iusocial.model.Posts;
 import com.iusocial.model.User;
+import com.iusocial.model.Userinfo;
 import com.iusocial.service.LoginService;
 
 @Controller
@@ -87,6 +88,7 @@ public class WelcomeController {
 			}
 			model.addAttribute("Post", new Posts());
 			model.addAttribute("postlist",newlist);
+			model.addAttribute("userinfo", new Userinfo());
 			return "profile";
 		}
 		else{
